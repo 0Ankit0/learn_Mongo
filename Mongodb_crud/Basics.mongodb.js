@@ -1,3 +1,11 @@
+/**************************************************************************
+ * when you are using an operator that starts with $ always wrap it in {} *
+ * when using an element in the document wrap it in "" ex."$elementName"  *
+ *                                                                        *
+ **************************************************************************/
+
+
+
 //To show all the databases in the system
 // show databases;
 //Declare the database to use
@@ -56,6 +64,16 @@ db.dropUser("username");
 //you can create a backup of the database using mongodump
 //and restore it using mongorestore but it is an external tool that you have to install separately
 
+/***********************************************************************************************************************************************************************************************************************************************************
+ *              The ESR rule for index creation                                                                                                                                                                                                                         *
+ * Creating the correct index for the queries is not always obvious.
+ * However, there is a general rule that you can use to help you, which is called the ESR (Equality, Sort, Range) rule.                                                                  *
+ *                                                                                                                                                                                                                                                         *
+ * This rule is a thought framework that describes how to build your compound indexes.
+ * Start with the fields that use an exact match, add the fields you use for sorting, and finally,
+ * add fields used for non-exact matches (i.e., $lt or $ne operators). *
+ *                                                                                                                                                                                                                                                         *
+ ***********************************************************************************************************************************************************************************************************************************************************/
 
 //creating an index to make it available for searching
 // db.products.createIndex({title:1}) //1 for ascending order and -1 for descending order
