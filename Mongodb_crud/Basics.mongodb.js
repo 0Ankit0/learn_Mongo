@@ -16,7 +16,7 @@ db.createCollection('users');
 //To create a database user
 db.createUser({
     user: "username",
-    pwd: "password",
+    pwd: "password", //or passwordPrompt() to ask for password
     roles: [{ role: "role", db: "database" }]
 })
 /************************************************************************************************************************
@@ -35,6 +35,7 @@ db.createUser({
 
 //To authenticate and login as a particular user
 db.auth("username", "password");
+db.auth("username", passwordPrompt()); //asks the password as a prompt instead of hardcoding it
 
 //To view all the users in the database
 db.getUsers();
@@ -51,3 +52,37 @@ db.updateUser("username", {
 
 //To drop a user
 db.dropUser("username");
+
+//you can create a backup of the database using mongodump
+//and restore it using mongorestore but it is an external tool that you have to install separately
+
+
+//creating an index to make it available for searching
+// db.products.createIndex({title:1}) //1 for ascending order and -1 for descending order
+// db.products.createIndex({title:1,price:-1}) //compound index
+
+
+//The $text query operator in MongoDB requires a text index on the fields that you want to search.
+// db.collection('').createIndex({ title: 'text' })
+// db.collection('').find({ $text: { $search: "perfume" } })
+
+
+/****************************************************************************************************************
+ * unique: If set to true, MongoDB enforces a unique constraint,                                                *
+ * which ensures that the indexed field does not store duplicate values.                                        *
+ *                                                                                                              *
+ * sparse: If set to true, MongoDB only indexes the documents that contain the indexed field.                   *
+ *  The sparse index option can make queries more efficient.                                                    *
+ *                                                                                                              *
+ * background: If set to true, MongoDB builds the index in the background                                       *
+ * so that building an index does not block other database activities.                                          *
+ *                                                                                                              *
+ * expireAfterSeconds: This option is used with TTL (Time-To-Live) indexes.                                     *
+ * It specifies a value, in seconds, as a TTL to control how long MongoDB retains documents in this collection. *
+ *                                                                                                              *
+ ****************************************************************************************************************/
+
+//in mongodb you cannot directly alter an index so
+//you have to drop the index and create a new index
+// db.products.getIndexes();//to get the name of all the indexes
+// db.products.dropIndex('title_1');//to drop the index
