@@ -7,11 +7,11 @@
 
 
 //To show all the databases in the system
-// show databases;
+ show databases;
 //Declare the database to use
 use('test');
 //To show the current database
-// db
+db
 
 //Now you can use db for accessing the database
 
@@ -19,7 +19,7 @@ use('test');
 db.createCollection('users');
 
 //To show all the collections in the database
-// show collections;
+ show collections;
 
 //To create a database user
 db.createUser({
@@ -76,13 +76,13 @@ db.dropUser("username");
  ***********************************************************************************************************************************************************************************************************************************************************/
 
 //creating an index to make it available for searching
-// db.products.createIndex({title:1}) //1 for ascending order and -1 for descending order
-// db.products.createIndex({title:1,price:-1}) //compound index
+db.collection().createIndex({ title: 1 }) //1 for ascending order and -1 for descending order
+db.collection().createIndex({ title: 1, price: -1 }) //compound index
 
 
 //The $text query operator in MongoDB requires a text index on the fields that you want to search.
-// db.collection('').createIndex({ title: 'text' })
-// db.collection('').find({ $text: { $search: "perfume" } })
+db.collection('').createIndex({ title: 'text' })
+db.collection('').find({ $text: { $search: "perfume" } })
 
 
 /****************************************************************************************************************
@@ -102,5 +102,9 @@ db.dropUser("username");
 
 //in mongodb you cannot directly alter an index so
 //you have to drop the index and create a new index
-// db.products.getIndexes();//to get the name of all the indexes
-// db.products.dropIndex('title_1');//to drop the index
+db.products.getIndexes();//to get the name of all the indexes
+db.products.dropIndex('title_1');//to drop the index
+
+//to create a replica set
+//first create a directory for the data
+mkdir - p / data / rs1 / data / rs2 / data / rs3 //-p flag is used to create the parent directory if it does not exist
