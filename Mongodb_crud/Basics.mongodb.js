@@ -116,3 +116,24 @@ mongod--replSet rs--port 27019 --dbpath / data / rs3
 mongo--port 27017
 //then initiate the replica set
 rs.initiate()
+//then add the other instances to the replica set
+rs.add("localhost:27018")
+rs.add("localhost:27019")
+//then check the status of the replica set
+rs.status()
+//to remove a replica set member
+rs.remove("localhost:27019")
+//to add a replica set member
+rs.add("localhost:27019")
+//to reconfigure the replica set
+rs.reconfig()
+//to step down the primary node( mostly used for maintenance purposes)
+rs.stepDown()
+//to check the replica set configuration
+rs.conf()
+//to check the replica set status
+rs.status()
+//to check the replica set version
+rs.isMaster().maxWireVersion
+//to check the replica set members
+rs.isMaster().hosts
