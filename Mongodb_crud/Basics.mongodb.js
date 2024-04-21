@@ -137,3 +137,68 @@ rs.status()
 rs.isMaster().maxWireVersion
 //to check the replica set members
 rs.isMaster().hosts
+
+/*****************************************************************************************************************************************************************************************************************************
+ * A sharded cluster in MongoDB is a set of servers that work together to distribute and manage data.
+ *  The data is broken into chunks and distributed across the servers in the cluster. 
+ * This process is known as "sharding". *
+ *                                                                                                                                                                                                                           *
+ * Sharding is a method for distributing data across multiple machines.
+ *  MongoDB uses sharding to support deployments with very large data sets and high throughput operations.                                               
+ *                                                                                                                                                                                                                           *
+ * Here are the main components of a sharded cluster:                                                                                                                                                                        *
+ *                                                                                                                                                                                                                           *
+ * Shards: Each shard contains a subset of the sharded data. As your data set grows, 
+ * you can add more shards to a cluster to increase capacity.                                                                              
+ *                                                                                                                                                                                                                           *
+ * Config servers: Config servers store metadata and configuration settings for the cluster. 
+ * They track the location and distribution of data within the cluster.                                                            
+ *                                                                                                                                                                                                                           *
+ * Mongos instances: These are routing processes that direct the client application's data requests to the appropriate shard or shards.                                                                                      *
+ *                                                                                                                                                                                                                           *
+ *****************************************************************************************************************************************************************************************************************************/
+//to create a sharded cluster
+//first create a directory for the data
+mkdir - p / data / config / data / shard1 / data / shard2 / data / shard3
+//then start the config server
+mongod--configsvr--replSet configReplSet--port 27017 --dbpath / data / config
+//then connect to the config server
+mongo--port 27017
+//then initiate the config server
+rs.initiate()
+//then start the shard servers
+mongod--shardsvr--replSet shard1ReplSet--port 27018 --dbpath / data / shard1
+mongod--shardsvr--replSet shard2ReplSet--port 27019 --dbpath / data / shard2
+mongod--shardsvr--replSet shard3ReplSet--port 27020 --dbpath / data / shard3
+//then connect to the shard servers
+mongo--port 27018
+mongo--port 27019
+mongo--port 27020
+//then initiate the shard servers
+rs.initiate()
+//then connect to the config server
+mongo--port 27017
+//then add the shard servers to the config server
+sh.addShard("shard1ReplSet/localhost:27018")
+sh.addShard("shard2ReplSet/localhost:27019")
+sh.addShard("shard3ReplSet/localhost:27020")
+//then check the status of the sharded cluster
+sh.status()
+//then create a database and a collection
+use test
+db.createCollection("users")
+//then shard the collection
+sh.shardCollection("test.users", { _id: "hashed" })
+//then insert some data
+db.users.insert({ _id: 1, name: "Alice" })
+db.users.insert({ _id: 2, name: "Bob" })
+db.users.insert({ _id: 3, name: "Charlie" })
+
+//to check the shard distribution
+db.users.getShardDistribution()
+//to check the shard key
+db.users.getShardKey()
+//to check the shard version
+db.users.getShardVersion()
+//to check the shard status
+db.users.getShardStatus()
