@@ -108,3 +108,11 @@ db.products.dropIndex('title_1');//to drop the index
 //to create a replica set
 //first create a directory for the data
 mkdir - p / data / rs1 / data / rs2 / data / rs3 //-p flag is used to create the parent directory if it does not exist
+//then start the mongod instances
+mongod--replSet rs--port 27017 --dbpath / data / rs1
+mongod--replSet rs--port 27018 --dbpath / data / rs2
+mongod--replSet rs--port 27019 --dbpath / data / rs3
+//then connect to one of the instances
+mongo--port 27017
+//then initiate the replica set
+rs.initiate()
