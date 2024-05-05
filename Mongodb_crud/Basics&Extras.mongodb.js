@@ -202,3 +202,21 @@ db.users.getShardKey()
 db.users.getShardVersion()
 //to check the shard status
 db.users.getShardStatus()
+
+
+//mongoexport is a tool that allows you to export data from MongoDB in JSON, CSV, or TSV format.
+//to export data from a collection
+mongoexport--db test--collection users--out / data / users.json
+
+//mongoimport is a tool that allows you to import data into MongoDB from a JSON, CSV, or TSV file.
+//to import data into a collection
+mongoimport--db test--collection users--file / data / users.json
+
+//mongodump is a tool that allows you to create a backup of a MongoDB database.
+//to create a backup of the database
+mongodump--db test--out / data / backup
+
+//mongorestore is a tool that allows you to restore a MongoDB database from a backup created with mongodump.
+//to restore the database
+mongorestore--db test / data / backup / test
+
