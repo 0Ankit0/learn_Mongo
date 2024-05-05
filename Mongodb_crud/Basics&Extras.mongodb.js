@@ -76,13 +76,13 @@ db.dropUser("username");
  ***********************************************************************************************************************************************************************************************************************************************************/
 
 //creating an index to make it available for searching
-db.collection().createIndex({ title: 1 }) //1 for ascending order and -1 for descending order
-db.collection().createIndex({ title: 1, price: -1 }) //compound index
+db.collection.createIndex({ title: 1 }) //1 for ascending order and -1 for descending order
+db.collection.createIndex({ title: 1, price: -1 }) //compound index
 
 
 //The $text query operator in MongoDB requires a text index on the fields that you want to search.
-db.collection('').createIndex({ title: 'text' })
-db.collection('').find({ $text: { $search: "perfume" } })
+db.collection.createIndex({ title: 'text' })
+db.collection.find({ $text: { $search: "perfume" } })
 
 
 /****************************************************************************************************************
