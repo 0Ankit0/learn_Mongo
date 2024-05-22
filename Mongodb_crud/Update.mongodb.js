@@ -106,3 +106,10 @@ db.collection.update(
  * $setOnInsert: Sets the value of a field if an update results in an insert of a document.      *
  *************************************************************************************************/
 
+
+//to rename a field in the document
+db.collection.update(
+    { 'title': 'MongoDB Overview' },
+    { $rename: { 'yourFieldName': 'newFieldName' } }
+);
+
