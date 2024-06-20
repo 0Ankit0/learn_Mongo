@@ -1,10 +1,12 @@
 import connect from './Connection.js';
+import * as dotenv from 'dotenv';// Import the dotenv module
+dotenv.config();
 
 connect()
     .then(() => {
         console.log('Successfully connected to the database');
-        app.listen(3000, () => {
-            console.log('Server is listening on port 3000');
+        app.listen(process.env.PORT, () => {
+            console.log('Server is listening on port ' + process.env.PORT);
         });
     })
     .catch((error) => {
