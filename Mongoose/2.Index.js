@@ -1,5 +1,7 @@
 import connect from './Connection.js';
 import * as dotenv from 'dotenv';// Import the dotenv module
+import app from './3.1.extendedRoute.js';// Import the app from the extendedRoute.js file
+
 dotenv.config();
 
 connect()

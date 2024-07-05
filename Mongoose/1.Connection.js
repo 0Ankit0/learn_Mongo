@@ -1,8 +1,10 @@
 //You need to install mongoose package before running this code
 const mongoose = require('mongoose');
+const dotenv = require('dotenv'); // Import the dotenv module to read the .env file
+dotenv.config();
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost/mydatabase', {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
