@@ -7,7 +7,7 @@ export const createJWT = (user) => {
     return token;
 }
 export const hashPassword = (password) => {
-    return bcrypt.hash(password, 5);
+    return bcrypt.hash(password, 5);// here 5 is known as salt which is used to increase randomness.
 }
 export const comparePassword = (hash, password) => {
     try {
