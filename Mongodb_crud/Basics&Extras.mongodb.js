@@ -84,7 +84,20 @@ db.collection.createIndex({ title: 1, price: -1 }) //compound index
 db.collection.createIndex({ title: 'text' })
 db.collection.find({ $text: { $search: "perfume" } })
 
-
+//Creating indexes with options and error handling
+db.collection.createIndex(
+    { title: 1 },
+    {
+        unique: true,
+        sparse: true,
+        background: true,
+        expireAfterSeconds: 3600 // 1 hour
+    }
+).then(() => {
+    console.log('Index created successfully');
+}).catch(err => {
+    console.error('Error creating index:', err);
+});
 /****************************************************************************************************************
  * unique: If set to true, MongoDB enforces a unique constraint,                                                *
  * which ensures that the indexed field does not store duplicate values.                                        *
@@ -119,6 +132,17 @@ rs.initiate()
 //then add the other instances to the replica set
 rs.add("localhost:27018")
 rs.add("localhost:27019")
+
+//initiate the replica set alternatively
+rs.initiate({
+    _id: "rs",
+    members: [
+        { _id: 0, host: "localhost:27017" },
+        { _id: 1, host: "localhost:27018" },
+        { _id: 2, host: "localhost:27019" }
+    ]
+});
+
 //then check the status of the replica set
 rs.status()
 //to remove a replica set member

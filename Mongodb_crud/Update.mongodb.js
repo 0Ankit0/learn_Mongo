@@ -1,69 +1,68 @@
 use mydb
 //to update the document
-db.collection.update(
+db.collection.updateOne(
     { 'title': 'MongoDB Overview' },
     {
         $set: { 'title': 'New MongoDB Tutorial' }
     });
 
 //to update multiple documents
-db.collection.update(
+db.collection.updateMany(
     { 'title': 'MongoDB Overview' },
-    { $set: { 'title': 'New MongoDB Tutorial' } },
-    { multi: true }
+    { $set: { 'title': 'New MongoDB Tutorial' } }
 );
 
 //to update the document and insert if not found
-db.collection.update(
+db.collection.updateOne(
     { 'title': 'MongoDB Overview' },
     { $set: { 'title': 'New MongoDB Tutorial' } },
     { upsert: true }
 );
 
 //to update the document and increment the value
-db.collection.update(
+db.collection.updateMany(
     { 'title': 'MongoDB Overview' },
     { $inc: { 'yourFieldName': 5 } }
 );
 
 //to update the document and remove the field
-db.collection.update(
+db.collection.updateMany(
     { 'title': 'MongoDB Overview' },
     { $unset: { 'yourFieldName': 1 } }
 );
 
 //to update the document and rename the field
-db.collection.update(
+db.collection.updateMany(
     { 'title': 'MongoDB Overview' },
     { $rename: { 'yourFieldName': 'newFieldName' } }
 );
 
 //to update the document and push the value to array
-db.collection.update(
+db.collection.updateMany(
     { 'title': 'MongoDB Overview' },
     { $push: { 'yourFieldName': 'value' } }
 );
 
 //to update the document and add to set
-db.collection.update(
+db.collection.updateMany(
     { 'title': 'MongoDB Overview' },
     { $addToSet: { 'yourFieldName': 'value' } }
 );
 
 //to update the document and remove value from set
-db.collection.update(
+db.collection.updateMany(
     { 'title': 'MongoDB Overview' },
     { $pull: { 'yourFieldName': 'value' } }
 );
 
 //to update the document and remove first value from array
-db.collection.update(
+db.collection.updateMany(
     { 'title': 'MongoDB Overview' },
     { $pop: { 'yourFieldName': -1 } }
 );
 
 //to update the document and remove last value from array
-db.collection.update(
+db.collection.updateMany(
     { 'title': 'MongoDB Overview' },
     { $pop: { 'yourFieldName': 1 } }
 );
@@ -108,7 +107,7 @@ db.collection.update(
 
 
 //to rename a field in the document
-db.collection.update(
+db.collection.updateMany(
     { 'title': 'MongoDB Overview' },
     { $rename: { 'yourFieldName': 'newFieldName' } }
 );

@@ -21,21 +21,27 @@ db.collection.aggregate([{
 }]);
 
 //To aggregate the result of the find operation
-db.collection.find({ 'likes': { $lt: 50 } }).aggregate([{
-    $group: {
-        _id: null,
-        totalLikes: {
-            $sum: '$likes'
+db.collection.aggregate([
+    { $match: { 'likes': { $lt: 50 } } },
+    {
+        $group: {
+            _id: null,
+            totalLikes: {
+                $sum: '$likes'
+            }
         }
     }
-}]);
+]);
 
 //To add a new field to the document from find operation
-db.collection.find({ 'likes': { $lt: 50 } }).aggregate([{
-    $addFields: {
-        newField: 'new value'
+db.collection.aggregate([
+    { $match: { 'likes': { $lt: 50 } } },
+    {
+        $addFields: {
+            newField: 'new value'
+        }
     }
-}]);
+]);
 
 //To find the documents with the total likes greater than 100
 db.collection.aggregate([{
